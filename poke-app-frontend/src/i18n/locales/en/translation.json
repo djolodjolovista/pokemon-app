@@ -1,0 +1,44 @@
+{
+  "global": {
+    "searchPlaceholder": "Search...",
+    "next": "Next",
+    "prev": "Prev"
+  },
+  "login": {
+    "login": "Login",
+    "email": "Email",
+    "password": "Password"
+  },
+  "navbar": {
+    "pokemons": "Pokémons",
+    "locations": "Locations",
+    "logout": "Logout"
+  },
+  "pokemon": {
+    "pokemonList": "Pokémon List",
+    "searchPlaceholder": "Search Pokémon...",
+    "height": "Height",
+    "weight": "Weight",
+    "types": "Types",
+    "moreDetails": "More Details",
+    "basicInfo": "Basic Info",
+    "abilities": "Abilities",
+    "baseEXP": "Base EXP",
+    "stats": "Stats",
+    "evolutionChain": "Evolution Chain",
+    "biology": "Biology",
+    "color": "Color",
+    "habitat": "Habitat",
+    "shape": "Shape",
+    "description": "Description",
+    "moves": "Moves",
+    "pokemonLocations": "Pokémon Locations",
+    "id": "ID",
+    "name": "Name",
+    "region": "Region",
+    "area": "Area"
+  },
+  "toast": {
+    "loginSuccessful": "Login successful!"
+  }
+}
