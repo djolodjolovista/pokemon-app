@@ -26,8 +26,6 @@ const PokemonListPage = () => {
     onPageChange,
   } = usePokemonList()
 
-  if (loading) return <MoonSpinner size={60} position="center" />
-
   return (
     <Wrapper>
       <Header>
@@ -39,24 +37,25 @@ const PokemonListPage = () => {
           placeholder={t('pokemon.searchPlaceholder', 'Search Pokémon...')}
         />
       </Header>
-
+      {loading && <MoonSpinner size={60} position="center" />}
       <Content>
         <Grid>
-          {pokemons.map((p) => {
-            const id = getId(p.url)
-            const sprite = getFrontSprite(id)
-            const backSprite = getBackSprite(id)
+          {!loading &&
+            pokemons.map((p) => {
+              const id = getId(p.url)
+              const sprite = getFrontSprite(id)
+              const backSprite = getBackSprite(id)
 
-            return (
-              <PokemonCard
-                key={p.name}
-                name={p.name}
-                backSprite={backSprite}
-                sprite={sprite}
-                onClick={() => onSelectPokemon(p.name, sprite)}
-              />
-            )
-          })}
+              return (
+                <PokemonCard
+                  key={p.name}
+                  name={p.name}
+                  backSprite={backSprite}
+                  sprite={sprite}
+                  onClick={() => onSelectPokemon(p.name, sprite)}
+                />
+              )
+            })}
         </Grid>
 
         {selectedPokemon && (
