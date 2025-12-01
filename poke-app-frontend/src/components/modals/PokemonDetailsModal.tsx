@@ -3,6 +3,7 @@ import { useRef } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
+import { FocusTrap } from 'focus-trap-react'
 import { usePokemonDetails } from '../../hooks/api/usePokemonDetails'
 import { useOutsideClick } from '../../hooks/useOutsideClick'
 import MoonSpinner from '../spinners/MoonSpinner'
@@ -18,6 +19,7 @@ const PokemonDetailsModal = ({ name, onClose }: PokemonModalProps) => {
   const navigate = useNavigate()
   const modalRef = useRef<HTMLDivElement>(null)
   const mainType = details?.types?.[0] || 'normal'
+  const isFocusTrapActive = !!name && !loading && !error
 
   useOutsideClick(modalRef, onClose)
 
@@ -29,46 +31,55 @@ const PokemonDetailsModal = ({ name, onClose }: PokemonModalProps) => {
 
   return (
     <Overlay>
-      <ModalCard ref={modalRef} $typeColor={typeColors[mainType]}>
-        {loading && <MoonSpinner color="black" />}
-        {error && <ErrorBox>{error}</ErrorBox>}
+      <FocusTrap
+        active={isFocusTrapActive}
+        focusTrapOptions={{
+          clickOutsideDeactivates: true,
+          escapeDeactivates: true,
+          fallbackFocus: () => modalRef.current!,
+        }}
+      >
+        <ModalCard ref={modalRef} $typeColor={typeColors[mainType]}>
+          {loading && <MoonSpinner color="black" />}
+          {error && <ErrorBox>{error}</ErrorBox>}
 
-        {!loading && details && (
-          <>
-            <Title>{details.name}</Title>
+          {!loading && details && (
+            <>
+              <Title>{details.name}</Title>
 
-            <ImageRow>
-              <SpriteWrapper>
-                <Sprite src={details.sprite_front} alt="front" />
-              </SpriteWrapper>
-              <SpriteWrapper>
-                <Sprite src={details.sprite_back!} alt="back" />
-              </SpriteWrapper>
-            </ImageRow>
+              <ImageRow>
+                <SpriteWrapper>
+                  <Sprite src={details.sprite_front} alt="front" />
+                </SpriteWrapper>
+                <SpriteWrapper>
+                  <Sprite src={details.sprite_back!} alt="back" />
+                </SpriteWrapper>
+              </ImageRow>
 
-            <StatsBox>
-              <StatRow>
-                <Label>{t('pokemon.height', 'Height')}</Label>
-                <Value>{details.height}</Value>
-              </StatRow>
+              <StatsBox>
+                <StatRow>
+                  <Label>{t('pokemon.height', 'Height')}</Label>
+                  <Value>{details.height}</Value>
+                </StatRow>
 
-              <StatRow>
-                <Label>{t('pokemon.weight', 'Weight')}</Label>
-                <Value>{details.weight}</Value>
-              </StatRow>
+                <StatRow>
+                  <Label>{t('pokemon.weight', 'Weight')}</Label>
+                  <Value>{details.weight}</Value>
+                </StatRow>
 
-              <StatRow>
-                <Label>{t('pokemon.types', 'Types')}</Label>
-                <Value>{details.types.join(', ')}</Value>
-              </StatRow>
-            </StatsBox>
+                <StatRow>
+                  <Label>{t('pokemon.types', 'Types')}</Label>
+                  <Value>{details.types.join(', ')}</Value>
+                </StatRow>
+              </StatsBox>
 
-            <MoreButton onClick={goToExtended}>
-              {t('pokemon.moreDetails', 'More Details')}
-            </MoreButton>
-          </>
-        )}
-      </ModalCard>
+              <MoreButton tabIndex={0} onClick={goToExtended}>
+                {t('pokemon.moreDetails', 'More Details')}
+              </MoreButton>
+            </>
+          )}
+        </ModalCard>
+      </FocusTrap>
     </Overlay>
   )
 }
@@ -100,6 +111,7 @@ const Overlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.55);
