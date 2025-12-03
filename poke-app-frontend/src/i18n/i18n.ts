@@ -1,7 +1,7 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
-import enFashionTranslation from './locales/en/translation.json'
-import srFashionTranslation from './locales/sr/translation.json'
+import enTranslation from './locales/en/translation.json'
+import srTranslation from './locales/sr/translation.json'
 
 const savedLanguage = localStorage.getItem('language') || 'sr'
 
@@ -15,10 +15,10 @@ i18n.use(initReactI18next).init({
   },
   resources: {
     en: {
-      translation: enFashionTranslation,
+      translation: enTranslation,
     },
     sr: {
-      translation: srFashionTranslation,
+      translation: srTranslation,
     },
   },
 })

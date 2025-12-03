@@ -10,7 +10,7 @@
     "password": "Password"
   },
   "navbar": {
-    "pokemons": "Pokémons",
+    "pokemon": "Pokémon",
     "locations": "Locations",
     "logout": "Logout"
   },

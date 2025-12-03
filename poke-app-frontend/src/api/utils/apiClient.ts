@@ -35,7 +35,7 @@ apiClient.interceptors.response.use(
     const status = error?.response?.status
     const url = originalRequest.url || ''
 
-    // 🚫 1) LOGIN i REFRESH su izuzeti – ne pokušavaj refresh token
+    // 🚫 1) LOGIN and REFRESH are excluded - don't try refresh token
     if (url.includes('/auth/login') || url.includes('/auth/refresh')) {
       return Promise.reject(error)
     }

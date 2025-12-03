@@ -10,7 +10,7 @@
     "password": "Lozinka"
   },
   "navbar": {
-    "pokemons": "Pokemoni",
+    "pokemon": "Pokemoni",
     "locations": "Lokacije",
     "logout": "Odjava"
   },
