@@ -13,6 +13,7 @@ import { handleKeyboardNavigation } from '../../utils/keyboardNavigation'
 import UserMenu from '../UserMenu'
 import { usePokemonStore } from '../../store/pokemonStore'
 import MobileMenu from './MobileMenu'
+import { ROUTES } from '../../routes/paths.enum'
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
@@ -22,12 +23,12 @@ const Navbar = () => {
 
   const logout = useLogout()
   const navigate = useNavigate()
-  const { t } = useTranslation()
+  const { t } = useTranslation('navbar')
 
   const handleClickOnLogo = () => {
     setPage(1)
     setSearch('')
-    navigate('/pokemon')
+    navigate(ROUTES.POKEMON_LIST)
   }
 
   return (
@@ -36,8 +37,8 @@ const Navbar = () => {
         <LogoImg src={Logo} onClick={handleClickOnLogo} />
 
         <DesktopNav>
-          <StyledNavLink to="/pokemon">{t('navbar.pokemon', 'Pokemon')}</StyledNavLink>
-          <StyledNavLink to="/locations">{t('navbar.locations', 'Locations')}</StyledNavLink>
+          <StyledNavLink to={ROUTES.POKEMON_LIST}>{t('pokemon', 'Pokemon')}</StyledNavLink>
+          <StyledNavLink to={ROUTES.LOCATIONS}>{t('locations', 'Locations')}</StyledNavLink>
         </DesktopNav>
       </Left>
 

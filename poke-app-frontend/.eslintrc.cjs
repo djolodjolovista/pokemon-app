@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
+  ignorePatterns: ['*.cjs', '*.js'],
   parser: '@typescript-eslint/parser',
   extends: [
     'airbnb',

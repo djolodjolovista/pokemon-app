@@ -9,7 +9,7 @@ import MoonSpinner from '../../../components/spinners/MoonSpinner'
 import PasswordInput from '../../../components/PasswordInput'
 
 const Login = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('login')
   const { handleLogin, loading, errors } = useLogin()
 
   const [email, setEmail] = useState('')
@@ -30,12 +30,12 @@ const Login = () => {
             <LogoContainer>
               <LogoImg src={Logo} />
             </LogoContainer>
-            <Title>{t('login.login', 'Login')}</Title>
+            <Title>{t('login', 'Login')}</Title>
 
             <Form onSubmit={onSubmit}>
               <FieldGroup>
                 <Input
-                  label={t('login.email', 'Email')}
+                  label={t('email', 'Email')}
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -46,14 +46,14 @@ const Login = () => {
 
               <FieldGroup>
                 <PasswordInput
-                  label={t('login.password', 'Password')}
+                  label={t('password', 'Password')}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   error={errors.password}
                 />
               </FieldGroup>
 
-              <SubmitButton type="submit">{t('login.login', 'Login')}</SubmitButton>
+              <SubmitButton type="submit">{t('login', 'Login')}</SubmitButton>
             </Form>
           </>
         )}

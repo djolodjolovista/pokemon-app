@@ -78,19 +78,19 @@ const mockLocations: Location[] = [
 ]
 
 const LocationsPage = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('pokemon')
   return (
     <Container>
-      <Title>{t('pokemon.pokemonLocations', 'Pokémon Locations')}</Title>
+      <Title>{t('pokemonLocations', 'Pokémon Locations')}</Title>
       <TableWrapper>
         <Table>
           <thead>
             <tr>
-              <Th>{t('pokemon.id', 'ID')}</Th>
-              <Th>{t('pokemon.name', 'Name')}</Th>
-              <Th>{t('pokemon.region', 'Region')}</Th>
-              <Th>{t('pokemon.area', 'Area')}</Th>
-              <Th>{t('pokemon.description', 'Description')}</Th>
+              <Th>{t('id', 'ID')}</Th>
+              <Th>{t('name', 'Name')}</Th>
+              <Th>{t('region', 'Region')}</Th>
+              <Th>{t('area', 'Area')}</Th>
+              <Th>{t('description', 'Description')}</Th>
             </tr>
           </thead>
           <tbody>

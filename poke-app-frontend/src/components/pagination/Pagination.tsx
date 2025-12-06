@@ -9,7 +9,7 @@ interface PaginationProps {
 }
 
 const Pagination = ({ page, totalPages, onPageChange }: PaginationProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('global')
   const generatePages = () => {
     const pages: (number | string)[] = []
 
@@ -35,7 +35,7 @@ const Pagination = ({ page, totalPages, onPageChange }: PaginationProps) => {
   return (
     <Wrapper>
       <NavButton disabled={page === 1} onClick={() => onPageChange(page - 1)}>
-        {t('global.prev', 'Prev')}
+        {t('prev', 'Prev')}
       </NavButton>
 
       <Pages>
@@ -51,7 +51,7 @@ const Pagination = ({ page, totalPages, onPageChange }: PaginationProps) => {
       </Pages>
 
       <NavButton disabled={page === totalPages} onClick={() => onPageChange(page + 1)}>
-        {t('global.next', 'Next')}
+        {t('next', 'Next')}
       </NavButton>
     </Wrapper>
   )

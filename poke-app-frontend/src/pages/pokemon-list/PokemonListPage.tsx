@@ -10,7 +10,7 @@ import { getBackSprite, getFrontSprite } from '../../utils/pokemonSprites'
 import MoonSpinner from '../../components/spinners/MoonSpinner'
 
 const PokemonListPage = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('pokemon')
 
   const {
     pokemons,
@@ -29,12 +29,12 @@ const PokemonListPage = () => {
   return (
     <Wrapper>
       <Header>
-        <h2>{t('pokemon.pokemonList', 'Pokémon List')}</h2>
+        <h2>{t('pokemonList', 'Pokémon List')}</h2>
 
         <SearchBar
           value={search}
           onChange={(v) => onSearchChange(v)}
-          placeholder={t('pokemon.searchPlaceholder', 'Search Pokémon...')}
+          placeholder={t('searchPlaceholder', 'Search Pokémon...')}
         />
       </Header>
       {loading && <MoonSpinner size={60} position="center" />}

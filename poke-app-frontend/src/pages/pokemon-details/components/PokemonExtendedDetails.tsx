@@ -8,7 +8,7 @@ interface PokemonExtendedDetailsProps {
 }
 
 const PokemonExtendedDetails = ({ pokemon }: PokemonExtendedDetailsProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('pokemon')
   return (
     <Container>
       <Header>
@@ -17,28 +17,28 @@ const PokemonExtendedDetails = ({ pokemon }: PokemonExtendedDetailsProps) => {
       </Header>
 
       <Card>
-        <SectionTitle>{t('pokemon.basicInfo', 'Basic Info')}</SectionTitle>
+        <SectionTitle>{t('basicInfo', 'Basic Info')}</SectionTitle>
         <List>
           <li>
-            <Label>{t('pokemon.height', 'Height')}:</Label> {pokemon.height}
+            <Label>{t('height', 'Height')}:</Label> {pokemon.height}
           </li>
           <li>
-            <Label>{t('pokemon.weight', 'Weight')}:</Label> {pokemon.weight}
+            <Label>{t('weight', 'Weight')}:</Label> {pokemon.weight}
           </li>
           <li>
-            <Label>{t('pokemon.types', 'Types')}:</Label> {pokemon.types.join(', ')}
+            <Label>{t('types', 'Types')}:</Label> {pokemon.types.join(', ')}
           </li>
           <li>
-            <Label>{t('pokemon.abilities', 'Abilities')}:</Label> {pokemon.abilities.join(', ')}
+            <Label>{t('abilities', 'Abilities')}:</Label> {pokemon.abilities.join(', ')}
           </li>
           <li>
-            <Label>{t('pokemon.baseEXP', 'Base EXP')}:</Label> {pokemon.base_experience}
+            <Label>{t('baseEXP', 'Base EXP')}:</Label> {pokemon.base_experience}
           </li>
         </List>
       </Card>
 
       <Card>
-        <SectionTitle>{t('pokemon.stats', 'Stats')}</SectionTitle>
+        <SectionTitle>{t('stats', 'Stats')}</SectionTitle>
         <StatsGrid>
           {pokemon.stats.map((s) => (
             <Stat key={s.name}>
@@ -53,32 +53,32 @@ const PokemonExtendedDetails = ({ pokemon }: PokemonExtendedDetailsProps) => {
       </Card>
 
       <Card>
-        <SectionTitle>{t('pokemon.evolutionChain', 'Evolution Chain')}</SectionTitle>
+        <SectionTitle>{t('evolutionChain', 'Evolution Chain')}</SectionTitle>
         <EvolutionText>{pokemon.evolution_chain.join(' → ')}</EvolutionText>
       </Card>
 
       <Card>
-        <SectionTitle>{t('pokemon.biology', 'Biology')}</SectionTitle>
+        <SectionTitle>{t('biology', 'Biology')}</SectionTitle>
         <List>
           <li>
-            <Label>{t('pokemon.color', 'Color')}:</Label> {pokemon.color}
+            <Label>{t('color', 'Color')}:</Label> {pokemon.color}
           </li>
           <li>
-            <Label>{t('pokemon.habitat', 'Habitat')}:</Label> {pokemon.habitat}
+            <Label>{t('habitat', 'Habitat')}:</Label> {pokemon.habitat}
           </li>
           <li>
-            <Label>{t('pokemon.shape', 'Shape')}:</Label> {pokemon.shape}
+            <Label>{t('shape', 'Shape')}:</Label> {pokemon.shape}
           </li>
         </List>
       </Card>
 
       <Card>
-        <SectionTitle>{t('pokemon.description', 'Description')}</SectionTitle>
+        <SectionTitle>{t('description', 'Description')}</SectionTitle>
         <FlavorText>{pokemon.flavor_text}</FlavorText>
       </Card>
 
       <Card>
-        <SectionTitle>{t('pokemon.moves', 'Moves')}</SectionTitle>
+        <SectionTitle>{t('moves', 'Moves')}</SectionTitle>
         <MovesList>
           {pokemon.moves.map((m) => (
             <MoveItem key={m}>{m}</MoveItem>

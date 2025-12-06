@@ -5,6 +5,7 @@ import { Sun, Moon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Theme } from '../../store/theme.enum'
 import { useAuthStore } from '../../store/authStore'
+import { ROUTES } from '../../routes/paths.enum'
 
 interface MobileMenuProps {
   theme: Theme
@@ -15,16 +16,16 @@ interface MobileMenuProps {
 
 const MobileMenu = ({ theme, onToggleTheme, onClose, onLogout }: MobileMenuProps) => {
   const user = useAuthStore((state) => state.user)
-  const { t } = useTranslation()
+  const { t } = useTranslation('navbar')
 
   return (
     <Wrapper>
-      <StyledNavLink to="/pokemon" onClick={onClose}>
-        {t('navbar.pokemons', 'Pokemons')}
+      <StyledNavLink to={ROUTES.POKEMON_LIST} onClick={onClose}>
+        {t('pokemons', 'Pokemons')}
       </StyledNavLink>
 
-      <StyledNavLink to="/locations" onClick={onClose}>
-        {t('navbar.locations', 'Locations')}
+      <StyledNavLink to={ROUTES.LOCATIONS} onClick={onClose}>
+        {t('locations', 'Locations')}
       </StyledNavLink>
 
       <Divider />
@@ -32,11 +33,11 @@ const MobileMenu = ({ theme, onToggleTheme, onClose, onLogout }: MobileMenuProps
       <ThemeToggle onClick={onToggleTheme}>
         {theme === Theme.Dark ? (
           <>
-            <Sun size={18} /> {t('navbar.lightMode', 'Light Mode')}
+            <Sun size={18} /> {t('lightMode', 'Light Mode')}
           </>
         ) : (
           <>
-            <Moon size={18} /> {t('navbar.darkMode', 'Dark Mode')}
+            <Moon size={18} /> {t('darkMode', 'Dark Mode')}
           </>
         )}
       </ThemeToggle>
@@ -46,7 +47,7 @@ const MobileMenu = ({ theme, onToggleTheme, onClose, onLogout }: MobileMenuProps
       {user && (
         <>
           <UserName>{user.firstName}</UserName>
-          <LogoutButton onClick={onLogout}>{t('navbar.logout', 'Logout')}</LogoutButton>
+          <LogoutButton onClick={onLogout}>{t('logout', 'Logout')}</LogoutButton>
         </>
       )}
     </Wrapper>

@@ -7,6 +7,7 @@ import { FocusTrap } from 'focus-trap-react'
 import { usePokemonDetails } from '../../hooks/api/usePokemonDetails'
 import { useOutsideClick } from '../../hooks/useOutsideClick'
 import MoonSpinner from '../spinners/MoonSpinner'
+import { ROUTES } from '../../routes/paths.enum'
 
 interface PokemonModalProps {
   name: string | null
@@ -15,7 +16,7 @@ interface PokemonModalProps {
 
 const PokemonDetailsModal = ({ name, onClose }: PokemonModalProps) => {
   const { details, loading, error } = usePokemonDetails(name || null)
-  const { t } = useTranslation()
+  const { t } = useTranslation('pokemon')
   const navigate = useNavigate()
   const modalRef = useRef<HTMLDivElement>(null)
   const mainType = details?.types?.[0] || 'normal'
@@ -24,7 +25,7 @@ const PokemonDetailsModal = ({ name, onClose }: PokemonModalProps) => {
   useOutsideClick(modalRef, onClose)
 
   const goToExtended = () => {
-    navigate(`/pokemon/${name}`)
+    navigate(`${ROUTES.POKEMON_LIST}/${name}`)
   }
 
   if (!name) return null
@@ -58,23 +59,23 @@ const PokemonDetailsModal = ({ name, onClose }: PokemonModalProps) => {
 
               <StatsBox>
                 <StatRow>
-                  <Label>{t('pokemon.height', 'Height')}</Label>
+                  <Label>{t('height', 'Height')}</Label>
                   <Value>{details.height}</Value>
                 </StatRow>
 
                 <StatRow>
-                  <Label>{t('pokemon.weight', 'Weight')}</Label>
+                  <Label>{t('weight', 'Weight')}</Label>
                   <Value>{details.weight}</Value>
                 </StatRow>
 
                 <StatRow>
-                  <Label>{t('pokemon.types', 'Types')}</Label>
+                  <Label>{t('types', 'Types')}</Label>
                   <Value>{details.types.join(', ')}</Value>
                 </StatRow>
               </StatsBox>
 
               <MoreButton tabIndex={0} onClick={goToExtended}>
-                {t('pokemon.moreDetails', 'More Details')}
+                {t('moreDetails', 'More Details')}
               </MoreButton>
             </>
           )}

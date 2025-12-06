@@ -12,7 +12,7 @@ interface SearchBarProps {
 
 const SearchBar = ({ value, onChange, placeholder, delay = 300 }: SearchBarProps) => {
   const [inputValue, setInputValue] = useState(value)
-  const { t } = useTranslation()
+  const { t } = useTranslation('global')
 
   useEffect(() => {
     setInputValue(value)
@@ -34,7 +34,7 @@ const SearchBar = ({ value, onChange, placeholder, delay = 300 }: SearchBarProps
         type="text"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        placeholder={placeholder || t('global.searchPlaceholder', 'Search...')}
+        placeholder={placeholder || t('searchPlaceholder', 'Search...')}
       />
     </Wrapper>
   )

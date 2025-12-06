@@ -15,7 +15,7 @@ export const useLogin = () => {
 
   const theme = useTheme()
   const navigate = useNavigate()
-  const { t } = useTranslation()
+  const { t } = useTranslation('toast')
 
   const handleLogin = useCallback(
     async (email: string, password: string) => {
@@ -37,7 +37,7 @@ export const useLogin = () => {
       try {
         const res = await login({ email, password })
 
-        toast.success(t('toast.loginSuccessful', 'Login successful!'), {
+        toast.success(t('loginSuccessful', 'Login successful!'), {
           style: {
             background: theme.background,
             color: theme.text,
