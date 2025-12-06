@@ -37,7 +37,7 @@ export const useLogin = () => {
       try {
         const res = await login({ email, password })
 
-        toast.success(t('loginSuccessful', 'Login successful!'), {
+        toast.success(t('loginSuccessful'), {
           style: {
             background: theme.background,
             color: theme.text,

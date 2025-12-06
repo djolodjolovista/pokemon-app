@@ -81,16 +81,16 @@ const LocationsPage = () => {
   const { t } = useTranslation('pokemon')
   return (
     <Container>
-      <Title>{t('pokemonLocations', 'Pokémon Locations')}</Title>
+      <Title>{t('pokemonLocations')}</Title>
       <TableWrapper>
         <Table>
           <thead>
             <tr>
-              <Th>{t('id', 'ID')}</Th>
-              <Th>{t('name', 'Name')}</Th>
-              <Th>{t('region', 'Region')}</Th>
-              <Th>{t('area', 'Area')}</Th>
-              <Th>{t('description', 'Description')}</Th>
+              <Th>{t('id')}</Th>
+              <Th>{t('name')}</Th>
+              <Th>{t('region')}</Th>
+              <Th>{t('area')}</Th>
+              <Th>{t('description')}</Th>
             </tr>
           </thead>
           <tbody>

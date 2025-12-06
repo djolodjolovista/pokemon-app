@@ -30,12 +30,12 @@ const Login = () => {
             <LogoContainer>
               <LogoImg src={Logo} />
             </LogoContainer>
-            <Title>{t('login', 'Login')}</Title>
+            <Title>{t('login')}</Title>
 
             <Form onSubmit={onSubmit}>
               <FieldGroup>
                 <Input
-                  label={t('email', 'Email')}
+                  label={t('email')}
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -46,14 +46,14 @@ const Login = () => {
 
               <FieldGroup>
                 <PasswordInput
-                  label={t('password', 'Password')}
+                  label={t('password')}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   error={errors.password}
                 />
               </FieldGroup>
 
-              <SubmitButton type="submit">{t('login', 'Login')}</SubmitButton>
+              <SubmitButton type="submit">{t('login')}</SubmitButton>
             </Form>
           </>
         )}

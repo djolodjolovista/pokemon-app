@@ -29,12 +29,12 @@ const PokemonListPage = () => {
   return (
     <Wrapper>
       <Header>
-        <h2>{t('pokemonList', 'Pokémon List')}</h2>
+        <h2>{t('pokemonList')}</h2>
 
         <SearchBar
           value={search}
           onChange={(v) => onSearchChange(v)}
-          placeholder={t('searchPlaceholder', 'Search Pokémon...')}
+          placeholder={t('searchPlaceholder')}
         />
       </Header>
       {loading && <MoonSpinner size={60} position="center" />}

@@ -35,7 +35,7 @@ const Pagination = ({ page, totalPages, onPageChange }: PaginationProps) => {
   return (
     <Wrapper>
       <NavButton disabled={page === 1} onClick={() => onPageChange(page - 1)}>
-        {t('prev', 'Prev')}
+        {t('prev')}
       </NavButton>
 
       <Pages>
@@ -51,7 +51,7 @@ const Pagination = ({ page, totalPages, onPageChange }: PaginationProps) => {
       </Pages>
 
       <NavButton disabled={page === totalPages} onClick={() => onPageChange(page + 1)}>
-        {t('next', 'Next')}
+        {t('next')}
       </NavButton>
     </Wrapper>
   )

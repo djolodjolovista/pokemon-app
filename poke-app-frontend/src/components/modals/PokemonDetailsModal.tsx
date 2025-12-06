@@ -59,23 +59,23 @@ const PokemonDetailsModal = ({ name, onClose }: PokemonModalProps) => {
 
               <StatsBox>
                 <StatRow>
-                  <Label>{t('height', 'Height')}</Label>
+                  <Label>{t('height')}</Label>
                   <Value>{details.height}</Value>
                 </StatRow>
 
                 <StatRow>
-                  <Label>{t('weight', 'Weight')}</Label>
+                  <Label>{t('weight')}</Label>
                   <Value>{details.weight}</Value>
                 </StatRow>
 
                 <StatRow>
-                  <Label>{t('types', 'Types')}</Label>
+                  <Label>{t('types')}</Label>
                   <Value>{details.types.join(', ')}</Value>
                 </StatRow>
               </StatsBox>
 
               <MoreButton tabIndex={0} onClick={goToExtended}>
-                {t('moreDetails', 'More Details')}
+                {t('moreDetails')}
               </MoreButton>
             </>
           )}

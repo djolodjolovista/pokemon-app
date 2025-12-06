@@ -1,5 +1,7 @@
 {
   "pokemon": "Pokémon",
   "locations": "Locations",
-  "logout": "Logout"
+  "logout": "Logout",
+  "lightMode": "Light Mode",
+  "darkMode": "Dark Mode"
 }

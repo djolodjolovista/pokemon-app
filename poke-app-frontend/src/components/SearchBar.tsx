@@ -34,7 +34,7 @@ const SearchBar = ({ value, onChange, placeholder, delay = 300 }: SearchBarProps
         type="text"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        placeholder={placeholder || t('searchPlaceholder', 'Search...')}
+        placeholder={placeholder || t('searchPlaceholder')}
       />
     </Wrapper>
   )

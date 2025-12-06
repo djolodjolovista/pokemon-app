@@ -21,11 +21,11 @@ const MobileMenu = ({ theme, onToggleTheme, onClose, onLogout }: MobileMenuProps
   return (
     <Wrapper>
       <StyledNavLink to={ROUTES.POKEMON_LIST} onClick={onClose}>
-        {t('pokemons', 'Pokemons')}
+        {t('pokemon')}
       </StyledNavLink>
 
       <StyledNavLink to={ROUTES.LOCATIONS} onClick={onClose}>
-        {t('locations', 'Locations')}
+        {t('locations')}
       </StyledNavLink>
 
       <Divider />
@@ -33,11 +33,11 @@ const MobileMenu = ({ theme, onToggleTheme, onClose, onLogout }: MobileMenuProps
       <ThemeToggle onClick={onToggleTheme}>
         {theme === Theme.Dark ? (
           <>
-            <Sun size={18} /> {t('lightMode', 'Light Mode')}
+            <Sun size={18} /> {t('lightMode')}
           </>
         ) : (
           <>
-            <Moon size={18} /> {t('darkMode', 'Dark Mode')}
+            <Moon size={18} /> {t('darkMode')}
           </>
         )}
       </ThemeToggle>
@@ -47,7 +47,7 @@ const MobileMenu = ({ theme, onToggleTheme, onClose, onLogout }: MobileMenuProps
       {user && (
         <>
           <UserName>{user.firstName}</UserName>
-          <LogoutButton onClick={onLogout}>{t('logout', 'Logout')}</LogoutButton>
+          <LogoutButton onClick={onLogout}>{t('logout')}</LogoutButton>
         </>
       )}
     </Wrapper>

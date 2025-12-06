@@ -37,8 +37,8 @@ const Navbar = () => {
         <LogoImg src={Logo} onClick={handleClickOnLogo} />
 
         <DesktopNav>
-          <StyledNavLink to={ROUTES.POKEMON_LIST}>{t('pokemon', 'Pokemon')}</StyledNavLink>
-          <StyledNavLink to={ROUTES.LOCATIONS}>{t('locations', 'Locations')}</StyledNavLink>
+          <StyledNavLink to={ROUTES.POKEMON_LIST}>{t('pokemon')}</StyledNavLink>
+          <StyledNavLink to={ROUTES.LOCATIONS}>{t('locations')}</StyledNavLink>
         </DesktopNav>
       </Left>
 

@@ -1,5 +1,7 @@
 {
   "pokemon": "Pokemoni",
   "locations": "Lokacije",
-  "logout": "Odjava"
+  "logout": "Odjava",
+  "lightMode": "Svijetlo",
+  "darkMode": "Tamno"
 }
