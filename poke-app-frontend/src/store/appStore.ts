@@ -1,23 +1,22 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { Theme } from "./theme.enum";
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
+import { Theme } from './theme.enum'
 
 type AppState = {
-  theme: Theme;
-  toggleTheme: () => void;
-};
+  theme: Theme
+  toggleTheme: () => void
+}
 
 export const useAppStore = create<AppState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       theme: Theme.Light,
       toggleTheme: () => {
-        const current = get().theme;
-        set({ theme: current === Theme.Light ? Theme.Dark : Theme.Light });
+        set((state) => ({ theme: state.theme === Theme.Light ? Theme.Dark : Theme.Light }))
       },
     }),
     {
-      name: "app-settings",
-    }
-  )
-);
+      name: 'app-settings',
+    },
+  ),
+)

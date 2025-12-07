@@ -50,7 +50,7 @@ const Navbar = () => {
             tabIndex={0}
             onKeyDown={(e) => handleKeyboardNavigation(e, toggleTheme)}
           >
-            {theme === Theme.Dark ? <Sun size={18} /> : <Moon size={18} />}
+            {theme === Theme.Dark ? <Moon size={18} /> : <Sun size={18} />}
           </ThemeToggle>
           <UserMenu />
         </Actions>

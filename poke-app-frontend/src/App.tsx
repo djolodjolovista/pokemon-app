@@ -10,7 +10,7 @@ const App = () => {
   const theme = useAppStore((state) => state.theme)
 
   return (
-    <ThemeProvider theme={theme !== Theme.Light ? lightTheme : darkTheme}>
+    <ThemeProvider theme={theme === Theme.Light ? lightTheme : darkTheme}>
       <GlobalStyle />
       <AppRouter />
       <Toaster />
