@@ -131,11 +131,15 @@ const DropdownItem = styled.button`
   cursor: pointer;
   background: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.text};
-  border-radius: 5px 5px 0px 0px;
+  border-radius: 0;
+  &:first-child {
+    border-radius: 5px 5px 0px 0px;
+  }
+  &:last-child {
+    border-radius: 0px 0px 5px 5px;
+  }
   &:hover {
     background-color: ${({ theme }) => theme.navbarHoverBackground};
   }
-  &:hover:last-child {
-    border-radius: 0px 0px 5px 5px;
-  }
+   
 `
