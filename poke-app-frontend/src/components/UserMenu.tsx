@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import { LogOut } from 'lucide-react'
 import { useOutsideClick } from '../hooks/useOutsideClick'
@@ -8,15 +8,13 @@ import { useAuthStore } from '../store/authStore'
 import { useLogout } from '../hooks/api/useLogout'
 
 const UserMenu = () => {
-  const modalRef = useRef(null)
   const [isOpen, setIsOpen] = useState(false)
+  const modalRef = useOutsideClick<HTMLDivElement>(() => setIsOpen(false))
 
   const { user } = useAuthStore()
   const logout = useLogout()
 
   const toggleDropdown = () => setIsOpen((prev) => !prev)
-
-  useOutsideClick(modalRef, () => setIsOpen(false))
 
   if (!user) return null
 

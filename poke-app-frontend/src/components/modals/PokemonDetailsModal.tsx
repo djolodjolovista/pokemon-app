@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { useRef } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -18,11 +17,9 @@ const PokemonDetailsModal = ({ name, onClose }: PokemonModalProps) => {
   const { details, loading, error } = usePokemonDetails(name || null)
   const { t } = useTranslation('pokemon')
   const navigate = useNavigate()
-  const modalRef = useRef<HTMLDivElement>(null)
+  const modalRef = useOutsideClick<HTMLDivElement>(onClose)
   const mainType = details?.types?.[0] || 'normal'
   const isFocusTrapActive = !!name && !loading && !error
-
-  useOutsideClick(modalRef, onClose)
 
   const goToExtended = () => {
     navigate(`${ROUTES.POKEMON_LIST}/${name}`)

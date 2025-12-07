@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import serbianFlag from '../assets/images/serbia.png'
@@ -21,7 +21,7 @@ const languages: Language[] = [
 const LanguageSelector = () => {
   const { i18n } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
-  const modalRef = useRef(null)
+  const modalRef = useOutsideClick<HTMLDivElement>(() => setIsOpen(false))
 
   const handleLanguageChange = (
     languageCode: string,
@@ -38,8 +38,6 @@ const LanguageSelector = () => {
   }
 
   const selectedLanguage = languages.find((language) => language.code === i18n.language)
-
-  useOutsideClick(modalRef, () => setIsOpen(false))
 
   return (
     <Container ref={modalRef}>
@@ -141,5 +139,4 @@ const DropdownItem = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.navbarHoverBackground};
   }
-   
 `
