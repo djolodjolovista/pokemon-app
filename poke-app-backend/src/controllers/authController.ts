@@ -7,6 +7,7 @@ interface User {
   lastName: string;
   email: string;
   password: string;
+  avatar: string;
 }
 
 const demoUser: User = {
@@ -15,6 +16,7 @@ const demoUser: User = {
   lastName: "test_prezime",
   email: "test@gmail.com",
   password: "test9876",
+  avatar: "http://localhost:4000/ash_ketchum.webp"
 };
 
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET!;
@@ -47,6 +49,7 @@ export const login = (req: Request, res: Response) => {
           firstName: demoUser.firstName,
           lastName: demoUser.lastName,
           email: demoUser.email,
+          avatar: demoUser.avatar
         },
       },
     });
@@ -81,6 +84,7 @@ export const refreshToken = (req: Request, res: Response) => {
           firstName: demoUser.firstName,
           lastName: demoUser.lastName,
           email: demoUser.email,
+          avatar: demoUser.avatar
         },
       },
     });

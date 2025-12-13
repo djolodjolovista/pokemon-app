@@ -26,9 +26,7 @@ const UserMenu = () => {
         onClick={toggleDropdown}
         onKeyDown={(e) => handleKeyboardNavigation(e, toggleDropdown)}
       >
-        <Avatar
-          src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.firstName || 'User')}`}
-        />
+        <Avatar src={user.avatar} alt="User" />
         <UserName>{user.firstName}</UserName>
       </UserButton>
 
@@ -83,6 +81,7 @@ const Avatar = styled.img`
   width: 32px;
   height: 32px;
   border-radius: 50%;
+  object-fit: contain;
 `
 
 const UserName = styled.span`

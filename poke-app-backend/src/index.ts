@@ -3,6 +3,7 @@ dotenv.config();
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import path from "path";
 import authRoutes from "./routes/authRoutes";
 import pokemonRoutes from "./routes/pokemonRoutes";
 
@@ -17,6 +18,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(express.static(path.join(__dirname, "../public")));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/pokemon", pokemonRoutes);
