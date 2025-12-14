@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { handleKeyboardNavigation } from '../../../utils/keyboardNavigation'
@@ -10,33 +9,7 @@ interface PokemonCardProps {
   onClick: () => void
 }
 
-const PokemonCard = ({ name, sprite, onClick, backSprite }: PokemonCardProps) => {
-  const [hovered, setHovered] = useState(false)
-
-  useEffect(() => {
-    if (!backSprite) return
-
-    const img = new Image()
-    img.src = backSprite
-  }, [backSprite])
-
-  return (
-    <Wrapper
-      tabIndex={0}
-      onMouseEnter={() => backSprite && setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onClick={onClick}
-      onKeyDown={(e) => handleKeyboardNavigation(e, onClick)}
-    >
-      <PokemonImage src={hovered && backSprite ? backSprite : sprite} alt={name} />
-      <PokemonName>{name}</PokemonName>
-    </Wrapper>
-  )
-}
-
-export default PokemonCard
-
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   position: relative;
   padding: 1.5rem;
   border-radius: 20px;
@@ -89,7 +62,7 @@ export const Wrapper = styled.div`
   }
 `
 
-export const PokemonImage = styled.img`
+const PokemonImage = styled.img`
   width: 110px;
   height: 110px;
   object-fit: contain;
@@ -101,10 +74,36 @@ export const PokemonImage = styled.img`
   }
 `
 
-export const PokemonName = styled.h3`
+const PokemonName = styled.h3`
   font-size: 1.15rem;
   font-weight: 700;
   text-transform: capitalize;
   color: ${({ theme }) => theme.text};
   text-align: center;
 `
+
+const PokemonCard = ({ name, sprite, onClick, backSprite }: PokemonCardProps) => {
+  const [hovered, setHovered] = useState(false)
+
+  useEffect(() => {
+    if (!backSprite) return
+
+    const img = new Image()
+    img.src = backSprite
+  }, [backSprite])
+
+  return (
+    <Wrapper
+      tabIndex={0}
+      onMouseEnter={() => backSprite && setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onClick={onClick}
+      onKeyDown={(e) => handleKeyboardNavigation(e, onClick)}
+    >
+      <PokemonImage src={hovered && backSprite ? backSprite : sprite} alt={name} />
+      <PokemonName>{name}</PokemonName>
+    </Wrapper>
+  )
+}
+
+export default PokemonCard

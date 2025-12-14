@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import { useState } from 'react'
 import styled from 'styled-components'
 import { LogOut } from 'lucide-react'
@@ -6,50 +5,6 @@ import { useOutsideClick } from '../hooks/useOutsideClick'
 import { handleKeyboardNavigation } from '../utils/keyboardNavigation'
 import { useAuthStore } from '../store/authStore'
 import { useLogout } from '../hooks/api/useLogout'
-
-const UserMenu = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const modalRef = useOutsideClick<HTMLDivElement>(() => setIsOpen(false))
-
-  const { user } = useAuthStore()
-  const logout = useLogout()
-
-  const toggleDropdown = () => setIsOpen((prev) => !prev)
-
-  if (!user) return null
-
-  return (
-    <Container ref={modalRef}>
-      <UserButton
-        role="button"
-        tabIndex={0}
-        onClick={toggleDropdown}
-        onKeyDown={(e) => handleKeyboardNavigation(e, toggleDropdown)}
-      >
-        <Avatar src={user.avatar} alt="User" />
-        <UserName>{user.firstName}</UserName>
-      </UserButton>
-
-      {isOpen && (
-        <DropdownMenu>
-          <DropdownItem
-            onClick={() => {
-              logout()
-              setIsOpen(false)
-            }}
-            tabIndex={0}
-            onKeyDown={(e) => handleKeyboardNavigation(e, () => logout())}
-          >
-            Logout
-            <LogOut size={16} color="red" />
-          </DropdownItem>
-        </DropdownMenu>
-      )}
-    </Container>
-  )
-}
-
-export default UserMenu
 
 const Container = styled.div`
   position: relative;
@@ -125,3 +80,47 @@ const DropdownItem = styled.button`
     background-color: ${({ theme }) => theme.navbarHoverBackground};
   }
 `
+
+const UserMenu = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const modalRef = useOutsideClick<HTMLDivElement>(() => setIsOpen(false))
+
+  const { user } = useAuthStore()
+  const logout = useLogout()
+
+  const toggleDropdown = () => setIsOpen((prev) => !prev)
+
+  if (!user) return null
+
+  return (
+    <Container ref={modalRef}>
+      <UserButton
+        role="button"
+        tabIndex={0}
+        onClick={toggleDropdown}
+        onKeyDown={(e) => handleKeyboardNavigation(e, toggleDropdown)}
+      >
+        <Avatar src={user.avatar} alt="User" />
+        <UserName>{user.firstName}</UserName>
+      </UserButton>
+
+      {isOpen && (
+        <DropdownMenu>
+          <DropdownItem
+            onClick={() => {
+              logout()
+              setIsOpen(false)
+            }}
+            tabIndex={0}
+            onKeyDown={(e) => handleKeyboardNavigation(e, () => logout())}
+          >
+            Logout
+            <LogOut size={16} color="red" />
+          </DropdownItem>
+        </DropdownMenu>
+      )}
+    </Container>
+  )
+}
+
+export default UserMenu

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
 import styled from 'styled-components'
@@ -13,6 +12,25 @@ interface PasswordInputProps {
   onChange?: React.ChangeEventHandler<HTMLInputElement>
   disabled?: boolean
 }
+
+const Wrapper = styled.div`
+  position: relative;
+  width: 100%;
+`
+
+const IconWrapper = styled.div`
+  display: flex;
+  position: absolute;
+  top: 21px;
+  right: 12px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6b7280;
+  transition: color 0.2s ease;
+  &:hover {
+    color: #374151;
+  }
+`
 
 const PasswordInput = ({
   label = 'Password',
@@ -46,22 +64,3 @@ const PasswordInput = ({
 }
 
 export default PasswordInput
-
-export const Wrapper = styled.div`
-  position: relative;
-  width: 100%;
-`
-
-export const IconWrapper = styled.div`
-  display: flex;
-  position: absolute;
-  top: 21px;
-  right: 12px;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #6b7280;
-  transition: color 0.2s ease;
-  &:hover {
-    color: #374151;
-  }
-`

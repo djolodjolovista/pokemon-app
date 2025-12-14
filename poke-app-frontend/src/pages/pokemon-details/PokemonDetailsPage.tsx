@@ -1,9 +1,18 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { usePokemonExtendedDetails } from '../../hooks/api/usePokemoExtendedDetails'
 import PokemonExtendedDetails from './components/PokemonExtendedDetails'
 import MoonSpinner from '../../components/spinners/MoonSpinner'
+
+const Wrapper = styled.div`
+  width: 100%;
+  padding: 24px;
+`
+
+const Message = styled.div`
+  font-size: 22px;
+  padding: 24px;
+`
 
 const PokemonDetailsPage = () => {
   const { name } = useParams()
@@ -21,13 +30,3 @@ const PokemonDetailsPage = () => {
 }
 
 export default PokemonDetailsPage
-
-const Wrapper = styled.div`
-  width: 100%;
-  padding: 24px;
-`
-
-const Message = styled.div`
-  font-size: 22px;
-  padding: 24px;
-`

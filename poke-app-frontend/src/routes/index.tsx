@@ -8,7 +8,7 @@ import MainLayout from '../layouts/MainLayout'
 const LoginPage = lazy(() => import('../pages/login/LoginPage'))
 const PokemonListPage = lazy(() => import('../pages/pokemon-list/PokemonListPage'))
 const PokemonDetailsPage = lazy(() => import('../pages/pokemon-details/PokemonDetailsPage'))
-const LocationsPage = lazy(() => import('../pages/LocationsPage'))
+const LocationsPage = lazy(() => import('../pages/locations/LocationsPage'))
 
 const suspenseWrapper = (element: React.ReactNode) => (
   <Suspense fallback={<div>Loading...</div>}>{element}</Suspense>

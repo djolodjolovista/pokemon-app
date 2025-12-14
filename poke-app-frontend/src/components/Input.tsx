@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React from 'react'
 import styled from 'styled-components'
 
@@ -11,25 +10,6 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   disabled?: boolean
   onChange?: React.ChangeEventHandler<HTMLInputElement>
 }
-
-const Input = ({ label, error, type, value, placeholder, disabled, onChange }: InputProps) => (
-  <Wrapper>
-    <Label $error={!!error}>{label}</Label>
-
-    <StyledInput
-      $error={!!error}
-      type={type}
-      value={value}
-      placeholder={placeholder}
-      disabled={disabled}
-      onChange={onChange}
-    />
-
-    {error && typeof error === 'string' && <ErrorText>{error}</ErrorText>}
-  </Wrapper>
-)
-
-export default Input
 
 const Wrapper = styled.div`
   position: relative;
@@ -80,16 +60,22 @@ const ErrorText = styled.span`
   font-weight: 500;
   color: #f56565;
 `
-export const IconWrapper = styled.div`
-  display: flex;
-  position: absolute;
-  top: 50%;
-  right: 12px;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #6b7280;
-  transition: color 0.2s ease;
-  &:hover {
-    color: #374151;
-  }
-`
+
+const Input = ({ label, error, type, value, placeholder, disabled, onChange }: InputProps) => (
+  <Wrapper>
+    <Label $error={!!error}>{label}</Label>
+
+    <StyledInput
+      $error={!!error}
+      type={type}
+      value={value}
+      placeholder={placeholder}
+      disabled={disabled}
+      onChange={onChange}
+    />
+
+    {error && typeof error === 'string' && <ErrorText>{error}</ErrorText>}
+  </Wrapper>
+)
+
+export default Input

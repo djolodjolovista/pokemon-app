@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -7,57 +6,6 @@ interface PaginationProps {
   totalPages: number
   onPageChange: (page: number) => void
 }
-
-const Pagination = ({ page, totalPages, onPageChange }: PaginationProps) => {
-  const { t } = useTranslation('global')
-  const generatePages = () => {
-    const pages: (number | string)[] = []
-
-    pages.push(1)
-
-    if (page > 3) pages.push('left-ellipsis')
-
-    const candidates = [page - 1, page, page + 1]
-
-    const valid = candidates.filter((p) => typeof p === 'number' && p > 1 && p < totalPages)
-
-    pages.push(...valid)
-
-    if (page < totalPages - 2) pages.push('right-ellipsis')
-
-    if (totalPages > 1) pages.push(totalPages)
-
-    return pages
-  }
-
-  const pages = generatePages()
-
-  return (
-    <Wrapper>
-      <NavButton disabled={page === 1} onClick={() => onPageChange(page - 1)}>
-        {t('prev')}
-      </NavButton>
-
-      <Pages>
-        {pages.map((p) =>
-          typeof p === 'string' ? (
-            <Ellipsis key={p}>…</Ellipsis>
-          ) : (
-            <PageButton key={`page-${p}`} $active={p === page} onClick={() => onPageChange(p)}>
-              {p}
-            </PageButton>
-          ),
-        )}
-      </Pages>
-
-      <NavButton disabled={page === totalPages} onClick={() => onPageChange(page + 1)}>
-        {t('next')}
-      </NavButton>
-    </Wrapper>
-  )
-}
-
-export default Pagination
 
 const Wrapper = styled.div`
   display: flex;
@@ -140,3 +88,54 @@ const Ellipsis = styled.span`
     font-size: 12px;
   }
 `
+
+const Pagination = ({ page, totalPages, onPageChange }: PaginationProps) => {
+  const { t } = useTranslation('global')
+  const generatePages = () => {
+    const pages: (number | string)[] = []
+
+    pages.push(1)
+
+    if (page > 3) pages.push('left-ellipsis')
+
+    const candidates = [page - 1, page, page + 1]
+
+    const valid = candidates.filter((p) => typeof p === 'number' && p > 1 && p < totalPages)
+
+    pages.push(...valid)
+
+    if (page < totalPages - 2) pages.push('right-ellipsis')
+
+    if (totalPages > 1) pages.push(totalPages)
+
+    return pages
+  }
+
+  const pages = generatePages()
+
+  return (
+    <Wrapper>
+      <NavButton disabled={page === 1} onClick={() => onPageChange(page - 1)}>
+        {t('prev')}
+      </NavButton>
+
+      <Pages>
+        {pages.map((p) =>
+          typeof p === 'string' ? (
+            <Ellipsis key={p}>…</Ellipsis>
+          ) : (
+            <PageButton key={`page-${p}`} $active={p === page} onClick={() => onPageChange(p)}>
+              {p}
+            </PageButton>
+          ),
+        )}
+      </Pages>
+
+      <NavButton disabled={page === totalPages} onClick={() => onPageChange(page + 1)}>
+        {t('next')}
+      </NavButton>
+    </Wrapper>
+  )
+}
+
+export default Pagination

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import { useState } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
@@ -17,6 +16,65 @@ const languages: Language[] = [
   { code: 'en', flag: usaFlag, label: 'English' },
   { code: 'sr', flag: serbianFlag, label: 'Serbian' },
 ]
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+`
+
+const FlagButton = styled.span`
+  border: none;
+  background: none;
+  cursor: pointer;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid ${({ theme }) => theme.border};
+  border-radius: 50%;
+`
+
+const FlagImage = styled.img<{ selected: boolean }>``
+
+const DropdownMenu = styled.div`
+  width: 100px;
+  position: absolute;
+  top: 40px;
+  background-color: ${({ theme }) => theme.background};
+  border: 1px solid ${({ theme }) => theme.border};
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+`
+
+const DropdownItem = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px;
+  cursor: pointer;
+  background: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
+  border-radius: 0;
+  &:first-child {
+    border-radius: 5px 5px 0px 0px;
+  }
+  &:last-child {
+    border-radius: 0px 0px 5px 5px;
+  }
+  &:hover {
+    background-color: ${({ theme }) => theme.navbarHoverBackground};
+  }
+`
 
 const LanguageSelector = () => {
   const { i18n } = useTranslation()
@@ -81,62 +139,3 @@ const LanguageSelector = () => {
 }
 
 export default LanguageSelector
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  position: relative;
-
-  &:hover {
-    cursor: pointer;
-    opacity: 0.8;
-  }
-`
-
-const FlagButton = styled.span`
-  border: none;
-  background: none;
-  cursor: pointer;
-  width: 34px;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid ${({ theme }) => theme.border};
-  border-radius: 50%;
-`
-
-const FlagImage = styled.img<{ selected: boolean }>``
-
-const DropdownMenu = styled.div`
-  width: 100px;
-  position: absolute;
-  top: 40px;
-  background-color: ${({ theme }) => theme.background};
-  border: 1px solid ${({ theme }) => theme.border};
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-`
-
-const DropdownItem = styled.button`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 10px;
-  cursor: pointer;
-  background: ${({ theme }) => theme.background};
-  color: ${({ theme }) => theme.text};
-  border-radius: 0;
-  &:first-child {
-    border-radius: 5px 5px 0px 0px;
-  }
-  &:last-child {
-    border-radius: 0px 0px 5px 5px;
-  }
-  &:hover {
-    background-color: ${({ theme }) => theme.navbarHoverBackground};
-  }
-`
