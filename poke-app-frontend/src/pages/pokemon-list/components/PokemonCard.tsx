@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 
   border: 1px solid ${({ theme }) => theme.border};
   box-shadow:
-    0 6px 12px rgba(0, 0, 0, 0.08),
+    0 3px 6px rgba(0, 0, 0, 0.08),
     inset 0 0 8px rgba(255, 255, 255, 0.05);
 
   display: flex;
@@ -56,7 +56,7 @@ const Wrapper = styled.div`
   &:hover {
     transform: translateY(-6px);
     box-shadow:
-      0 10px 20px rgba(0, 0, 0, 0.12),
+      0 5px 10px rgba(0, 0, 0, 0.12),
       0 0 8px rgba(99, 102, 241, 0.3);
     border-color: ${({ theme }) => theme.primary};
   }

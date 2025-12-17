@@ -32,7 +32,7 @@ const Login = () => {
     <Wrapper>
       <Card>
         {loading ? (
-          <MoonSpinner position="center" size={60} />
+          <MoonSpinner align="center" size={60} />
         ) : (
           <>
             <LogoContainer>

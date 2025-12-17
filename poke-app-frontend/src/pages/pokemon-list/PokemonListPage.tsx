@@ -26,7 +26,8 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 16px;
-  margin-top: 16px;
+  margin-top: 6px;
+  padding: 10px;
 `
 
 const Content = styled.div`
@@ -71,7 +72,7 @@ const PokemonListPage = () => {
           placeholder={t('searchPlaceholder')}
         />
       </Header>
-      {loading && <MoonSpinner size={60} position="center" />}
+      {loading && <MoonSpinner size={60} align="center" />}
       <Content>
         <Grid>
           {!loading &&

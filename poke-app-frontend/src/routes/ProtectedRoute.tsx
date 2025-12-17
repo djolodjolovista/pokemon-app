@@ -15,7 +15,7 @@ const ProtectedRoute = () => {
   }, [])
 
   if (loading) {
-    return <MoonSpinner size={60} position="center" />
+    return <MoonSpinner size={60} align="center" />
   }
 
   if (!isAuthenticated) {
