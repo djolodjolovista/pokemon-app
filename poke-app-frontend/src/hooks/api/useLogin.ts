@@ -52,8 +52,8 @@ export const useLogin = () => {
         setLoading(false)
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [navigate, theme],
+
+    [navigate, theme, t],
   )
 
   return {

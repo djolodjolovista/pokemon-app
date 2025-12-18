@@ -11,8 +11,7 @@ const ProtectedRoute = () => {
 
   useEffect(() => {
     checkSession()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [checkSession])
 
   if (loading) {
     return <MoonSpinner size={60} align="center" />
