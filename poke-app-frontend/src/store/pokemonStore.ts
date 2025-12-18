@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { getPokemonList } from '../api/pokemonApi'
 import type { PokemonListItem } from '../types/types'
+import { POKEMON_PAGE_SIZE } from '../types/pokemon.constants'
 
 interface PokemonCacheEntry {
   list: PokemonListItem[]
@@ -9,55 +10,31 @@ interface PokemonCacheEntry {
 
 interface PokemonState {
   pokemons: PokemonListItem[]
-  page: number
   total: number
-  search: string
   loading: boolean
   cache: Record<string, PokemonCacheEntry>
-  initialized: boolean
 
-  initializeFromUrl: (page: number, search: string) => void
-  fetchPokemons: (page?: number, search?: string) => Promise<void>
-  setPage: (page: number) => void
-  setSearch: (search: string) => void
+  fetchPokemons: (page: number, search: string) => Promise<void>
 }
 
 const LOCAL_CACHE_KEY = 'pokemon_cache_v2'
 
 export const usePokemonStore = create<PokemonState>((set, get) => ({
   pokemons: [],
-  page: 1,
   total: 0,
-  search: '',
   loading: false,
-  initialized: false,
 
   cache: JSON.parse(localStorage.getItem(LOCAL_CACHE_KEY) || '{}'),
 
-  initializeFromUrl: (page, search) =>
-    set({
-      page,
-      search,
-      initialized: true,
-    }),
-
-  setPage: (page) => set({ page }),
-
-  setSearch: (search) => set({ search, page: 1 }),
-
-  fetchPokemons: async (page = get().page, search = get().search) => {
-    if (!get().initialized) return
-
-    const { cache } = get()
+  fetchPokemons: async (page, search) => {
     const cacheKey = `${search}_${page}`
+    const { cache } = get()
 
     if (cache[cacheKey]) {
       const entry = cache[cacheKey]
       set({
         pokemons: entry.list,
         total: entry.total,
-        page,
-        search,
       })
       return
     }
@@ -65,7 +42,7 @@ export const usePokemonStore = create<PokemonState>((set, get) => ({
     set({ loading: true })
 
     try {
-      const data = await getPokemonList(page, 20, search)
+      const data = await getPokemonList(page, POKEMON_PAGE_SIZE, search)
 
       const list = data.results
       const totalItems = data.count
@@ -80,8 +57,6 @@ export const usePokemonStore = create<PokemonState>((set, get) => ({
       set({
         pokemons: list,
         total: totalItems,
-        page,
-        search,
         cache: newCache,
       })
     } finally {

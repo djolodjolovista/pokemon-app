@@ -9,7 +9,6 @@ import LanguageSelector from '../LanguageSelector'
 import { useLogout } from '../../hooks/api/useLogout'
 import { handleKeyboardNavigation } from '../../utils/keyboardNavigation'
 import UserMenu from '../UserMenu'
-import { usePokemonStore } from '../../store/pokemonStore'
 import MobileMenu from './MobileMenu'
 import { ROUTES } from '../../routes/paths.enum'
 import {
@@ -27,17 +26,13 @@ import {
 const Navbar = () => {
   const [open, setOpen] = useState(false)
 
-  const { setPage, setSearch } = usePokemonStore()
   const { theme, toggleTheme } = useAppStore()
-
   const logout = useLogout()
   const navigate = useNavigate()
   const { t } = useTranslation('navbar')
 
   const handleClickOnLogo = () => {
-    setPage(1)
-    setSearch('')
-    navigate(ROUTES.POKEMON_LIST)
+    navigate({ pathname: ROUTES.POKEMON_LIST, search: '?page=1&search=' })
   }
 
   return (

@@ -1,56 +1,47 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { usePokemonStore } from '../../store/pokemonStore'
+import { POKEMON_PAGE_SIZE } from '../../types/pokemon.constants'
 
 type SelectedPokemon = { name: string; sprite: string } | null
 
 export const usePokemonList = () => {
-  const {
-    pokemons,
-    page,
-    total,
-    search,
-    loading,
-    initialized,
-    fetchPokemons,
-    setPage,
-    setSearch,
-    initializeFromUrl,
-  } = usePokemonStore()
+  const { pokemons, total, loading, fetchPokemons } = usePokemonStore()
 
-  const [params, setParams] = useSearchParams()
+  const [params, setParams] = useSearchParams({ page: '1', search: '' })
   const [selectedPokemon, setSelectedPokemon] = useState<SelectedPokemon>(null)
 
-  useEffect(() => {
-    const urlPage = Number(params.get('page')) || 1
-    const urlSearch = params.get('search') || ''
-    initializeFromUrl(urlPage, urlSearch)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const pageParam = Number(params.get('page'))
+  const page = Number.isFinite(pageParam) && pageParam > 0 ? pageParam : 1
+  const search = params.get('search') ?? ''
+
+  const totalPages = Math.ceil(total / POKEMON_PAGE_SIZE)
 
   useEffect(() => {
-    if (!initialized) return
     fetchPokemons(page, search)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialized, page, search])
+  }, [page, search, fetchPokemons])
 
   useEffect(() => {
-    if (!initialized) return
-    setParams({ page: String(page), search })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialized, page, search])
+    if (total === 0) return
+
+    if (page > totalPages) setParams({ page: String(totalPages), search })
+  }, [page, total, search, totalPages, setParams])
+
+  const onSearchChange = useCallback(
+    (v: string) => setParams({ page: '1', search: v }),
+    [setParams],
+  )
+
+  const onPageChange = useCallback(
+    (p: number) => setParams({ page: String(p), search }),
+    [setParams, search],
+  )
 
   const onSelectPokemon = useCallback((name: string, sprite: string) => {
     setSelectedPokemon({ name, sprite })
   }, [])
 
   const onCloseDetails = useCallback(() => setSelectedPokemon(null), [])
-
-  const onSearchChange = useCallback((v: string) => setSearch(v), [setSearch])
-
-  const onPageChange = useCallback((p: number) => setPage(p), [setPage])
-
-  const totalPages = Math.ceil(total / 20)
 
   const getId = useCallback((url: string) => {
     const parts = url.split('/').filter(Boolean)
@@ -63,16 +54,13 @@ export const usePokemonList = () => {
     total,
     search,
     loading,
-    initialized,
-
     totalPages,
-    getId,
+    selectedPokemon,
 
+    getId,
     onSelectPokemon,
     onCloseDetails,
     onSearchChange,
     onPageChange,
-
-    selectedPokemon,
   } as const
 }
