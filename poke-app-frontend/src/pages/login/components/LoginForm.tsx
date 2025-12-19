@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import Input from '../../../components/Input'
 import Logo from '../../../assets/images/pokemon_app_logo.png'
@@ -20,11 +20,13 @@ const Login = () => {
   const { t } = useTranslation('login')
   const { handleLogin, loading, errors } = useLogin()
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+
+    const formData = new FormData(e.target as HTMLFormElement)
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+
     handleLogin(email, password)
   }
 
@@ -42,23 +44,11 @@ const Login = () => {
 
             <Form onSubmit={onSubmit}>
               <FieldGroup>
-                <Input
-                  label={t('email')}
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  error={errors.email}
-                />
+                <Input name="email" label={t('email')} type="email" required error={errors.email} />
               </FieldGroup>
 
               <FieldGroup>
-                <PasswordInput
-                  label={t('password')}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  error={errors.password}
-                />
+                <PasswordInput name="password" label={t('password')} error={errors.password} />
               </FieldGroup>
 
               <SubmitButton type="submit">{t('login')}</SubmitButton>

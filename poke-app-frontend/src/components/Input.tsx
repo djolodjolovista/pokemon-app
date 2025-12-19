@@ -1,14 +1,21 @@
 import React from 'react'
 import styled from 'styled-components'
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps {
   label: string
   error?: string | boolean
+  name?: string
   type?: string
   value?: string
+  defaultValue?: string
   placeholder?: string
   disabled?: boolean
+  required?: boolean
+  autoComplete?: string
+  ref?: React.Ref<HTMLInputElement>
+
   onChange?: React.ChangeEventHandler<HTMLInputElement>
+  onBlur?: React.FocusEventHandler<HTMLInputElement>
 }
 
 const Wrapper = styled.div`
@@ -61,17 +68,37 @@ const ErrorText = styled.span`
   color: #f56565;
 `
 
-const Input = ({ label, error, type, value, placeholder, disabled, onChange }: InputProps) => (
+const Input = ({
+  label,
+  error,
+  name,
+  type,
+  value,
+  defaultValue,
+  placeholder,
+  disabled,
+  required,
+  autoComplete,
+  ref,
+  onChange,
+  onBlur,
+}: InputProps) => (
   <Wrapper>
     <Label $error={!!error}>{label}</Label>
 
     <StyledInput
+      ref={ref}
       $error={!!error}
+      name={name}
       type={type}
       value={value}
+      defaultValue={defaultValue}
       placeholder={placeholder}
       disabled={disabled}
+      required={required}
+      autoComplete={autoComplete}
       onChange={onChange}
+      onBlur={onBlur}
     />
 
     {error && typeof error === 'string' && <ErrorText>{error}</ErrorText>}

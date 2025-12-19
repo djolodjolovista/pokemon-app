@@ -9,8 +9,9 @@ interface PasswordInputProps {
   name?: string
   value?: string
   placeholder?: string
-  onChange?: React.ChangeEventHandler<HTMLInputElement>
   disabled?: boolean
+  ref?: React.Ref<HTMLInputElement>
+  onChange?: React.ChangeEventHandler<HTMLInputElement>
 }
 
 const Wrapper = styled.div`
@@ -38,14 +39,16 @@ const PasswordInput = ({
   name,
   value,
   placeholder,
-  onChange,
   disabled,
+  ref,
+  onChange,
 }: PasswordInputProps) => {
   const [showPassword, setShowPassword] = useState(false)
 
   return (
     <Wrapper>
       <Input
+        ref={ref}
         label={label}
         error={error}
         type={showPassword ? 'text' : 'password'}
