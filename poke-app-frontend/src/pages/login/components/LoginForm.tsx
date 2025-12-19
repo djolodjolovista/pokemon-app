@@ -33,28 +33,26 @@ const Login = () => {
   return (
     <Wrapper>
       <Card>
-        {loading ? (
-          <MoonSpinner align="center" size={60} />
-        ) : (
-          <>
-            <LogoContainer>
-              <LogoImg src={Logo} />
-            </LogoContainer>
-            <Title>{t('login')}</Title>
+        <LogoContainer>
+          <LogoImg src={Logo} />
+        </LogoContainer>
+        <Title>{t('login')}</Title>
 
-            <Form onSubmit={onSubmit}>
-              <FieldGroup>
-                <Input name="email" label={t('email')} type="email" required error={errors.email} />
-              </FieldGroup>
+        <Form onSubmit={onSubmit}>
+          <FieldGroup>
+            <Input name="email" label={t('email')} type="email" required error={errors.email} />
+          </FieldGroup>
 
-              <FieldGroup>
-                <PasswordInput name="password" label={t('password')} error={errors.password} />
-              </FieldGroup>
+          <FieldGroup>
+            <PasswordInput name="password" label={t('password')} error={errors.password} />
+          </FieldGroup>
 
-              <SubmitButton type="submit">{t('login')}</SubmitButton>
-            </Form>
-          </>
-        )}
+          {loading ? (
+            <MoonSpinner align="center" />
+          ) : (
+            <SubmitButton type="submit">{t('login')}</SubmitButton>
+          )}
+        </Form>
       </Card>
     </Wrapper>
   )
