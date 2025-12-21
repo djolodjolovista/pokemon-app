@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import styled from 'styled-components'
 import { handleKeyboardNavigation } from '../../../utils/keyboardNavigation'
 
@@ -83,8 +83,6 @@ const PokemonName = styled.h3`
 `
 
 const PokemonCard = ({ name, sprite, onClick, backSprite }: PokemonCardProps) => {
-  const [hovered, setHovered] = useState(false)
-
   useEffect(() => {
     if (!backSprite) return
 
@@ -93,14 +91,17 @@ const PokemonCard = ({ name, sprite, onClick, backSprite }: PokemonCardProps) =>
   }, [backSprite])
 
   return (
-    <Wrapper
-      tabIndex={0}
-      onMouseEnter={() => backSprite && setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onClick={onClick}
-      onKeyDown={(e) => handleKeyboardNavigation(e, onClick)}
-    >
-      <PokemonImage src={hovered && backSprite ? backSprite : sprite} alt={name} />
+    <Wrapper tabIndex={0} onClick={onClick} onKeyDown={(e) => handleKeyboardNavigation(e, onClick)}>
+      <PokemonImage
+        onMouseEnter={(e) => {
+          if (backSprite) e.currentTarget.src = backSprite
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.src = sprite
+        }}
+        src={sprite}
+        alt={name}
+      />
       <PokemonName>{name}</PokemonName>
     </Wrapper>
   )
