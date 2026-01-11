@@ -88,19 +88,14 @@ apiClient.interceptors.response.use(
         return await apiClient(originalRequest)
       } catch (err) {
         processQueue(err as AxiosError, null)
-        setTimeout(() => {
-          useAuthStore.getState().logout()
-        }, 2000)
-
+        useAuthStore.getState().logout()
         throw err
       } finally {
         isRefreshing = false
       }
     }
     if (status === 401) {
-      setTimeout(() => {
-        useAuthStore.getState().logout()
-      }, 10000)
+      useAuthStore.getState().logout()
       return Promise.reject(error)
     }
 
