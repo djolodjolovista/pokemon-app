@@ -18,7 +18,5 @@
   "moves": "Moves",
   "pokemonLocations": "Pokémon Locations",
   "id": "ID",
-  "name": "Name",
-  "region": "Region",
-  "area": "Area"
+  "name": "Name"
 }

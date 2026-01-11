@@ -1,14 +1,15 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 16px 0 0 0;
+  padding: 16px 0 0x 0;
 `
 
 export const Title = styled.h2`
   color: ${({ theme }) => theme.text};
+  padding-top: 16px;
 `
 
 export const TableWrapper = styled.div`

@@ -106,3 +106,22 @@ export const getPokemonExtended = async (req: Request, res: Response) => {
       .json({ message: "Extended Pokémon details not found" });
   }
 };
+
+export const getPokemonLocations = async (req: Request, res: Response) => {
+  try {
+    const locationsRes = await axios.get(
+      `${process.env.POKE_API_BASE}/location`
+    );
+    const locations = locationsRes.data.results;
+    const formatedLocations = locations.map((loc: any, index: number) => ({
+      id: index,
+      name: loc.name,
+      url: loc.url,
+    }));
+    return res.json(formatedLocations);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Failed to fetch Pokémon locations" });
+  }
+};

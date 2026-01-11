@@ -1,4 +1,9 @@
-import type { ExtendedDetailsPokemon, PokemonDetails, PokemonListResponse } from '../types/types'
+import type {
+  ExtendedDetailsPokemon,
+  Location,
+  PokemonDetails,
+  PokemonListResponse,
+} from '../types/types'
 import { apiWrapper } from './utils/apiWrapper'
 import apiClient from './utils/apiClient'
 
@@ -36,3 +41,9 @@ export const getPokemonDetailsExtended = (name: string): Promise<ExtendedDetails
     return res.data
   })
 }
+
+export const getPokemonLocations = (): Promise<Location[]> =>
+  apiWrapper(async () => {
+    const res = await apiClient.get('/pokemon/locations')
+    return res.data
+  })

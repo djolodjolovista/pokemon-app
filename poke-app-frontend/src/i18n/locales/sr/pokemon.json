@@ -18,7 +18,5 @@
   "moves": "Napadi",
   "pokemonLocations": "Lokacije Pokemona",
   "id": "ID",
-  "name": "Ime",
-  "region": "Regija",
-  "area": "Oblast"
+  "name": "Ime"
 }
