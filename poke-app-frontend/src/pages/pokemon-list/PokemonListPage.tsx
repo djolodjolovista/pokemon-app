@@ -66,7 +66,7 @@ const PokemonListPage = () => {
     loop: true,
     selector: '[data-pokemon-card]',
     gridColumns: 'auto',
-    onNavigate: (index, element) => {
+    onNavigate: (_index, element) => {
       element.scrollIntoView({ block: 'center', behavior: 'smooth' })
     },
   })
