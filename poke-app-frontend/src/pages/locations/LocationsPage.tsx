@@ -23,7 +23,7 @@ const LocationsPage = () => {
           </thead>
           <tbody>
             {locations.map((loc) => (
-              <Tr tabIndex={0} key={loc.id}>
+              <Tr key={loc.id}>
                 <Td>{formatLocationsName(loc.name)}</Td>
               </Tr>
             ))}

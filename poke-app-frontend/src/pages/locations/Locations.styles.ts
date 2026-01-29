@@ -68,13 +68,6 @@ export const Tr = styled.tr`
   &:nth-child(even) {
     background: ${({ theme }) => theme.background};
   }
-  &:hover {
-    background: ${({ theme }) => theme.primary};
-    color: #fff;
-    td {
-      color: #fff;
-    }
-  }
 `
 
 export const Td = styled.td<{ label?: string }>`

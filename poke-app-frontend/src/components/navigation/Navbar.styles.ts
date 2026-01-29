@@ -1,5 +1,5 @@
-import { NavLink } from "react-router-dom"
-import styled from "styled-components"
+import { NavLink } from 'react-router-dom'
+import styled from 'styled-components'
 
 export const Wrapper = styled.header`
   width: 100%;
@@ -21,12 +21,16 @@ export const Left = styled.div`
   gap: 22px;
 `
 
+export const LogoButton = styled.button.attrs({ className: 'focus-ring' })`
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+`
+
 export const LogoImg = styled.img`
   height: 38px;
   object-fit: contain;
-  &:hover {
-    cursor: pointer;
-  }
 `
 
 export const DesktopNav = styled.nav`
@@ -63,7 +67,8 @@ export const Right = styled.div`
   gap: 14px;
 `
 
-export const ThemeToggle = styled.span`
+export const ThemeToggle = styled.button.attrs({ className: 'focus-ring' })`
+  all: unset;
   background: ${({ theme }) => theme.card};
   border: 1px solid ${({ theme }) => theme.border};
   width: 34px;

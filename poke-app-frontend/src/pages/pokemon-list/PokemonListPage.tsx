@@ -7,6 +7,7 @@ import PokemonDetailsModal from '../../components/modals/PokemonDetailsModal'
 import { usePokemonList } from '../../hooks/api/usePokemonList'
 import { getBackSprite, getFrontSprite } from '../../utils/pokemonSprites'
 import MoonSpinner from '../../components/spinners/MoonSpinner'
+import { useArrowNavigation } from '../../hooks/useArrowNavigation'
 
 const Wrapper = styled.div`
   display: flex;
@@ -46,7 +47,6 @@ const Content = styled.div`
 
 const PokemonListPage = () => {
   const { t } = useTranslation('pokemon')
-
   const {
     pokemons,
     page,
@@ -60,6 +60,16 @@ const PokemonListPage = () => {
     onSearchChange,
     onPageChange,
   } = usePokemonList()
+  const gridRef = useArrowNavigation<HTMLDivElement>({
+    enabled: true,
+    orientation: 'grid',
+    loop: true,
+    selector: '[data-pokemon-card]',
+    gridColumns: 'auto',
+    onNavigate: (index, element) => {
+      element.scrollIntoView({ block: 'center', behavior: 'smooth' })
+    },
+  })
 
   return (
     <Wrapper>
@@ -74,15 +84,17 @@ const PokemonListPage = () => {
       </Header>
       {loading && <MoonSpinner size={60} align="center" />}
       <Content>
-        <Grid>
+        <Grid ref={gridRef}>
           {!loading &&
-            pokemons.map((p) => {
+            pokemons.map((p, index) => {
               const id = getId(p.url)
               const sprite = getFrontSprite(id)
               const backSprite = getBackSprite(id)
 
               return (
                 <PokemonCard
+                  tabIndex={index === 0 ? 0 : -1}
+                  data-pokemon-card
                   key={p.name}
                   name={p.name}
                   backSprite={backSprite}

@@ -1,23 +1,11 @@
-import { useState } from 'react'
 import styled from 'styled-components'
 import { LogOut } from 'lucide-react'
-import { useOutsideClick } from '../hooks/useOutsideClick'
-import { handleKeyboardNavigation } from '../utils/keyboardNavigation'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { useAuthStore } from '../store/authStore'
 import { useLogout } from '../hooks/api/useLogout'
 
-const Container = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-
-  &:hover {
-    cursor: pointer;
-    opacity: 0.9;
-  }
-`
-
-const UserButton = styled.span`
+const UserButton = styled.button.attrs({ className: 'focus-ring' })`
+  all: unset;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -26,10 +14,6 @@ const UserButton = styled.span`
   border: 1px solid ${({ theme }) => theme.border};
   cursor: pointer;
   user-select: none;
-
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.primary};
-  }
 `
 
 const Avatar = styled.img`
@@ -44,20 +28,17 @@ const UserName = styled.span`
   color: ${({ theme }) => theme.text};
 `
 
-const DropdownMenu = styled.div`
+const StyledDropdownMenu = styled(DropdownMenu.Content)`
   min-width: 115px;
-  position: absolute;
-  top: 48px;
-  right: 0;
   background-color: ${({ theme }) => theme.background};
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 8px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
-  z-index: 10;
-  overflow: hidden;
+  margin-top: 3px;
+  z-index: 50;
 `
 
-const DropdownItem = styled.button`
+const DropdownItem = styled(DropdownMenu.Item)`
   width: 100%;
   padding: 10px 12px;
   text-align: left;
@@ -70,6 +51,7 @@ const DropdownItem = styled.button`
   align-items: center;
   justify-content: center;
   gap: 10px;
+  border-radius: 8px;
 
   &:hover {
     background-color: ${({ theme }) => theme.navbarHoverBackground};
@@ -82,44 +64,27 @@ const DropdownItem = styled.button`
 `
 
 const UserMenu = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const modalRef = useOutsideClick<HTMLDivElement>(() => setIsOpen(false))
-
   const { user } = useAuthStore()
   const logout = useLogout()
-
-  const toggleDropdown = () => setIsOpen((prev) => !prev)
 
   if (!user) return null
 
   return (
-    <Container ref={modalRef}>
-      <UserButton
-        role="button"
-        tabIndex={0}
-        onClick={toggleDropdown}
-        onKeyDown={(e) => handleKeyboardNavigation(e, toggleDropdown)}
-      >
-        <Avatar src={user.avatar} alt="User" />
-        <UserName>{user.firstName}</UserName>
-      </UserButton>
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger asChild>
+        <UserButton>
+          <Avatar src={user.avatar} alt={`${user.firstName} avatar`} />
+          <UserName>{user.firstName}</UserName>
+        </UserButton>
+      </DropdownMenu.Trigger>
 
-      {isOpen && (
-        <DropdownMenu>
-          <DropdownItem
-            onClick={() => {
-              logout()
-              setIsOpen(false)
-            }}
-            tabIndex={0}
-            onKeyDown={(e) => handleKeyboardNavigation(e, () => logout())}
-          >
-            Logout
-            <LogOut size={16} color="red" />
-          </DropdownItem>
-        </DropdownMenu>
-      )}
-    </Container>
+      <StyledDropdownMenu side="bottom" align="end">
+        <DropdownItem onClick={() => logout()}>
+          Logout
+          <LogOut size={16} color="red" />
+        </DropdownItem>
+      </StyledDropdownMenu>
+    </DropdownMenu.Root>
   )
 }
 

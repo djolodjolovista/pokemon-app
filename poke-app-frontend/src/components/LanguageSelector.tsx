@@ -1,10 +1,8 @@
-import { useState } from 'react'
-import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
-import serbianFlag from '../assets/images/serbia.png'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import styled from 'styled-components'
 import usaFlag from '../assets/images/usa.png'
-import { useOutsideClick } from '../hooks/useOutsideClick'
-import { handleKeyboardNavigation } from '../utils/keyboardNavigation'
+import serbianFlag from '../assets/images/serbia.png'
 
 interface Language {
   code: string
@@ -17,22 +15,8 @@ const languages: Language[] = [
   { code: 'sr', flag: serbianFlag, label: 'Serbian' },
 ]
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  position: relative;
-
-  &:hover {
-    cursor: pointer;
-    opacity: 0.8;
-  }
-`
-
-const FlagButton = styled.span`
-  border: none;
-  background: none;
+const FlagButton = styled.button.attrs({ className: 'focus-ring' })`
+  all: unset;
   cursor: pointer;
   width: 34px;
   height: 34px;
@@ -43,97 +27,83 @@ const FlagButton = styled.span`
   border-radius: 50%;
 `
 
-const FlagImage = styled.img<{ selected: boolean }>``
+const FlagImage = styled.img<{ selected?: boolean }>`
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  opacity: ${({ selected }) => (selected ? 1 : 0.6)};
+`
 
-const DropdownMenu = styled.div`
-  width: 100px;
-  position: absolute;
-  top: 40px;
+const StyledDropdownContent = styled(DropdownMenu.Content)`
+  min-width: 100px;
   background-color: ${({ theme }) => theme.background};
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1;
+  z-index: 50;
 `
 
-const DropdownItem = styled.button`
+const StyledDropdownItem = styled(DropdownMenu.Item)`
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 10px;
+  padding: 8px 10px;
   cursor: pointer;
   background: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.text};
   border-radius: 0;
+
   &:first-child {
-    border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0 0;
   }
   &:last-child {
-    border-radius: 0px 0px 5px 5px;
+    border-radius: 0 0 5px 5px;
   }
-  &:hover {
+
+  &[data-highlighted] {
     background-color: ${({ theme }) => theme.navbarHoverBackground};
+    outline: none;
   }
+`
+
+const Container = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
 `
 
 const LanguageSelector = () => {
   const { i18n } = useTranslation()
-  const [isOpen, setIsOpen] = useState(false)
-  const modalRef = useOutsideClick<HTMLDivElement>(() => setIsOpen(false))
 
-  const handleLanguageChange = (
-    languageCode: string,
-    event: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    event.stopPropagation()
-    i18n.changeLanguage(languageCode)
-    localStorage.setItem('language', languageCode)
-    setIsOpen(false)
+  const handleLanguageChange = (code: string) => {
+    i18n.changeLanguage(code)
+    localStorage.setItem('language', code)
   }
 
-  const toggleDropdown = () => {
-    setIsOpen((prev) => !prev)
-  }
-
-  const selectedLanguage = languages.find((language) => language.code === i18n.language)
+  const selectedLanguage = languages.find((lang) => lang.code === i18n.language) || languages[0]
 
   return (
-    <Container ref={modalRef}>
-      <FlagButton
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => handleKeyboardNavigation(e, toggleDropdown)}
-        onClick={toggleDropdown}
-      >
-        <FlagImage
-          selected={i18n.language === 'en'}
-          src={selectedLanguage?.flag}
-          width={18}
-          height={18}
-          alt="Selected Language"
-        />
-      </FlagButton>
+    <Container>
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger asChild>
+          <FlagButton aria-label="Select language">
+            <FlagImage src={selectedLanguage.flag} alt={selectedLanguage.label} selected />
+          </FlagButton>
+        </DropdownMenu.Trigger>
 
-      {isOpen && (
-        <DropdownMenu>
-          {languages.map((language) => (
-            <DropdownItem
-              key={language.code}
-              tabIndex={0}
-              onClick={(event) => handleLanguageChange(language.code, event)}
-            >
+        <StyledDropdownContent side="bottom" align="end">
+          {languages.map((lang) => (
+            <StyledDropdownItem key={lang.code} onSelect={() => handleLanguageChange(lang.code)}>
               <FlagImage
-                selected={i18n.language === language.code}
-                src={language.flag}
-                width={20}
-                height={20}
-                alt={language.label}
+                src={lang.flag}
+                alt={lang.label}
+                selected={lang.code === selectedLanguage.code}
               />
-              {language.label}
-            </DropdownItem>
+              {lang.label}
+            </StyledDropdownItem>
           ))}
-        </DropdownMenu>
-      )}
+        </StyledDropdownContent>
+      </DropdownMenu.Root>
     </Container>
   )
 }

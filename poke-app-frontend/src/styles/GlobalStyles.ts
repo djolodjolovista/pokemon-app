@@ -49,9 +49,18 @@ export const GlobalStyle = createGlobalStyle`
     display: block;
     max-width: 100%;
   }
-    *:focus-visible {
-  outline: 3px solid #3182ce;
-  outline-offset: 3px;
+    
+  *:focus-visible {
+     outline: 2px solid ${({ theme }) => theme.primary};
+     outline-offset: 2px;
+}
+  .focus-ring:focus-visible {
+      outline: 2px solid ${({ theme }) => theme.primary};
+      outline-offset: 2px;
+  }
+
+  :focus:not(:focus-visible) {
+  outline: none;
 }
 
 `

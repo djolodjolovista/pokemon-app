@@ -1,15 +1,19 @@
 import { useEffect } from 'react'
 import styled from 'styled-components'
-import { handleKeyboardNavigation } from '../../../utils/keyboardNavigation'
 
 interface PokemonCardProps {
   name: string
   sprite: string
   backSprite?: string
+  'data-pokemon-card': boolean
+  tabIndex?: number
   onClick: () => void
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.button.attrs({
+  className: 'focus-ring',
+})`
+  all: unset;
   position: relative;
   padding: 1.5rem;
   border-radius: 20px;
@@ -82,7 +86,14 @@ const PokemonName = styled.h3`
   text-align: center;
 `
 
-const PokemonCard = ({ name, sprite, onClick, backSprite }: PokemonCardProps) => {
+const PokemonCard = ({
+  name,
+  sprite,
+  onClick,
+  backSprite,
+  'data-pokemon-card': dataPokemonCard,
+  tabIndex,
+}: PokemonCardProps) => {
   useEffect(() => {
     if (!backSprite) return
 
@@ -91,7 +102,12 @@ const PokemonCard = ({ name, sprite, onClick, backSprite }: PokemonCardProps) =>
   }, [backSprite])
 
   return (
-    <Wrapper tabIndex={0} onClick={onClick} onKeyDown={(e) => handleKeyboardNavigation(e, onClick)}>
+    <Wrapper
+      type="button"
+      tabIndex={tabIndex}
+      onClick={onClick}
+      data-pokemon-card={dataPokemonCard}
+    >
       <PokemonImage
         onMouseEnter={(e) => {
           if (backSprite) e.currentTarget.src = backSprite

@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
+import { useArrowNavigation } from '../../hooks/useArrowNavigation'
 
 interface PaginationProps {
   page: number
@@ -28,7 +29,7 @@ const Pages = styled.div`
   }
 `
 
-const NavButton = styled.button`
+const NavButton = styled.button.attrs({ className: 'focus-ring' })`
   padding: 8px 12px;
   font-size: 14px;
   border-radius: 6px;
@@ -55,7 +56,7 @@ const NavButton = styled.button`
   }
 `
 
-const PageButton = styled.button<{ $active?: boolean }>`
+const PageButton = styled.button.attrs({ className: 'focus-ring' })<{ $active?: boolean }>`
   padding: 8px 12px;
   border-radius: 6px;
   font-size: 14px;
@@ -91,6 +92,11 @@ const Ellipsis = styled.span`
 
 const Pagination = ({ page, totalPages, onPageChange }: PaginationProps) => {
   const { t } = useTranslation('global')
+  const paginationRef = useArrowNavigation<HTMLDivElement>({
+    enabled: true,
+    orientation: 'horizontal',
+    selector: 'button:not(:disabled)',
+  })
   const generatePages = () => {
     const pages: (number | string)[] = []
 
@@ -114,7 +120,7 @@ const Pagination = ({ page, totalPages, onPageChange }: PaginationProps) => {
   const pages = generatePages()
 
   return (
-    <Wrapper>
+    <Wrapper ref={paginationRef}>
       <NavButton disabled={page === 1} onClick={() => onPageChange(page - 1)}>
         {t('prev')}
       </NavButton>

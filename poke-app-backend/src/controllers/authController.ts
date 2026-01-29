@@ -74,7 +74,7 @@ export const refreshToken = (req: Request, res: Response) => {
   try {
     const payload = jwt.verify(token, REFRESH_TOKEN_SECRET) as { id: number };
     const accessToken = jwt.sign({ id: payload.id }, ACCESS_TOKEN_SECRET, {
-      expiresIn: "10s",
+      expiresIn: "15m",
     });
 
     res.json({

@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Sun, Moon, Menu, X } from 'lucide-react'
+import * as Toggle from '@radix-ui/react-toggle'
 import Logo from '../../assets/images/pokemon_app_logo.png'
 import { useAppStore } from '../../store/appStore'
 import { Theme } from '../../store/theme.enum'
 import LanguageSelector from '../LanguageSelector'
 import { useLogout } from '../../hooks/api/useLogout'
-import { handleKeyboardNavigation } from '../../utils/keyboardNavigation'
 import UserMenu from '../UserMenu'
 import MobileMenu from './MobileMenu'
 import { ROUTES } from '../../routes/paths.enum'
@@ -15,6 +15,7 @@ import {
   Actions,
   DesktopNav,
   Left,
+  LogoButton,
   LogoImg,
   MobileMenuButton,
   Right,
@@ -22,6 +23,7 @@ import {
   ThemeToggle,
   Wrapper,
 } from './Navbar.styles'
+import { useArrowNavigation } from '../../hooks/useArrowNavigation'
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
@@ -31,14 +33,22 @@ const Navbar = () => {
   const navigate = useNavigate()
   const { t } = useTranslation('navbar')
 
+  const navbarRef = useArrowNavigation<HTMLElement>({
+    enabled: true,
+    orientation: 'horizontal',
+    loop: false,
+  })
+
   const handleClickOnLogo = () => {
     navigate({ pathname: ROUTES.POKEMON_LIST, search: '?page=1&search=' })
   }
 
   return (
-    <Wrapper>
+    <Wrapper ref={navbarRef}>
       <Left>
-        <LogoImg src={Logo} onClick={handleClickOnLogo} />
+        <LogoButton onClick={handleClickOnLogo}>
+          <LogoImg src={Logo} alt="Pokemon app logo" />
+        </LogoButton>
 
         <DesktopNav>
           <StyledNavLink to={ROUTES.POKEMON_LIST}>{t('pokemon')}</StyledNavLink>
@@ -49,13 +59,11 @@ const Navbar = () => {
       <Right>
         <LanguageSelector />
         <Actions>
-          <ThemeToggle
-            onClick={toggleTheme}
-            tabIndex={0}
-            onKeyDown={(e) => handleKeyboardNavigation(e, toggleTheme)}
-          >
-            {theme === Theme.Dark ? <Moon size={18} /> : <Sun size={18} />}
-          </ThemeToggle>
+          <Toggle.Root pressed={theme === Theme.Dark} onPressedChange={toggleTheme} asChild>
+            <ThemeToggle>
+              {theme === Theme.Dark ? <Moon size={18} /> : <Sun size={18} />}
+            </ThemeToggle>
+          </Toggle.Root>
           <UserMenu />
         </Actions>
 

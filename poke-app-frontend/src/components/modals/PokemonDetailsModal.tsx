@@ -52,7 +52,7 @@ const PokemonDetailsModal = ({ name, onClose }: PokemonModalProps) => {
   const navigate = useNavigate()
   const modalRef = useOutsideClick<HTMLDivElement>(onClose)
   const mainType = details?.types?.[0] || 'normal'
-  const isFocusTrapActive = !!name && !loading && !error
+  const isFocusTrapActive = !!name && !loading && !error && !!modalRef.current
 
   const goToExtended = () => {
     navigate(`${ROUTES.POKEMON_LIST}/${name}`)
@@ -65,12 +65,12 @@ const PokemonDetailsModal = ({ name, onClose }: PokemonModalProps) => {
       <FocusTrap
         active={isFocusTrapActive}
         focusTrapOptions={{
-          clickOutsideDeactivates: true,
           escapeDeactivates: true,
           fallbackFocus: () => modalRef.current!,
+          onDeactivate: onClose,
         }}
       >
-        <ModalCard ref={modalRef} $typeColor={typeColors[mainType]}>
+        <ModalCard ref={modalRef} $typeColor={typeColors[mainType]} tabIndex={-1}>
           {loading && <MoonSpinner color="black" />}
           {error && <ErrorBox>{error}</ErrorBox>}
 
